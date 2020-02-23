@@ -5,10 +5,11 @@
 
 class Car {
 public:
-	Car();
 	Car( int dimension );
 	virtual ~Car();
 
+	void setEgdeWeigth( int x, int y, int value );
+	void setReturnRate( int x, int y, int value );
 	int getEdgeWeigth( int x, int y );
 	int getReturnRate( int x, int y );
 

@@ -23,45 +23,45 @@ Solution::~Solution() {
 }
 
 void Solution::calculeFitness(){
-	if( !this->calculatedFitness ){
-		this->fitness = 0;
-		int previous_car = 0, actual_car = 0;
-		int rent_city = 0, actual_city = 0;
-		int weigth = 0, rate = 0;
-		Car myCar;
-
-		rent_city = this->cities[ 0 ];
-		previous_car = this->cars[ 0 ];
-		for( int i = 0; i < this->size-1; i++ ){
-			actual_city = this->cities[ i ];
-			actual_car = this->cars[ i ];
-			myCar = global_instance.getCar( actual_car );
-
-			weigth = myCar.getEdgeWeigth( actual_city, this->cities[ i+1 ] );
-			this->fitness += weigth;
-			if( previous_car != actual_car ){
-				myCar = global_instance.getCar( previous_car );
-				rate = myCar.getReturnRate( rent_city, actual_car );
-				this->fitness += rate;
-				previous_car = actual_car;
-				rent_city = actual_car;
-			}
-		}
-
-		myCar = global_instance.getCar( previous_car );
-		rate = myCar.getReturnRate( rent_city, 0 );
-		this->fitness += rate;
-		this->calculatedFitness = true;
-	}
+//	if( !this->calculatedFitness ){
+//		this->fitness = 0;
+//		int previous_car = 0, actual_car = 0;
+//		int rent_city = 0, actual_city = 0;
+//		int weigth = 0, rate = 0;
+//		Car myCar;
+//
+//		rent_city = this->cities[ 0 ];
+//		previous_car = this->cars[ 0 ];
+//		for( int i = 0; i < this->size-1; i++ ){
+//			actual_city = this->cities[ i ];
+//			actual_car = this->cars[ i ];
+//			myCar = GLOBAL.global_instance.getCar( actual_car );
+//
+//			weigth = myCar.getEdgeWeigth( actual_city, this->cities[ i+1 ] );
+//			this->fitness += weigth;
+//			if( previous_car != actual_car ){
+//				myCar = global_instance.getCar( previous_car );
+//				rate = myCar.getReturnRate( rent_city, actual_car );
+//				this->fitness += rate;
+//				previous_car = actual_car;
+//				rent_city = actual_car;
+//			}
+//		}
+//
+//		myCar = global_instance.getCar( previous_car );
+//		rate = myCar.getReturnRate( rent_city, 0 );
+//		this->fitness += rate;
+//		this->calculatedFitness = true;
+//	}
 }
 
 void Solution::calculeSatisfaction(){
-	this->satisfaction = 0;
-	for( int i = 0; i < this->size; i++ ){
-		if( i != this->size-1 || (i == this->size-1 && this->cities[ i ] != 0 ) ){
-			this->satisfaction += global_instance.getBonusSatisfaction( cities[ i ] );
-		}
-	}
+//	this->satisfaction = 0;
+//	for( int i = 0; i < this->size; i++ ){
+//		if( i != this->size-1 || (i == this->size-1 && this->cities[ i ] != 0 ) ){
+//			this->satisfaction += global_instance.getBonusSatisfaction( cities[ i ] );
+//		}
+//	}
 }
 
 void Solution::addEnd( int city, int car ){

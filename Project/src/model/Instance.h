@@ -12,8 +12,12 @@ public:
 
 	const double minimalSatisfaction = 0.8;
 
+	void  setCar( int index, Car c );
 	Car getCar( int index );
+
+	void setBonusSatisfaction( int index, int value );
 	int getBonusSatisfaction( int index );
+
 	int getSatisfactionTotal();
 
 private:
