@@ -104,7 +104,7 @@ void Solution::addCityAndCarAt( int index, int city, int car ){
 	this->calculatedFitness = false;
 }
 
-void Solution::insertCityAt( int index, int city ){
+void Solution::overwriteCityAt( int index, int city ){
 	if( index < 0 || index > this->size ){
 		throw runtime_error( "Invalid index to insert city.\n" );
 	}
@@ -112,7 +112,7 @@ void Solution::insertCityAt( int index, int city ){
 	this->calculatedFitness = false;
 }
 
-void Solution::insertCarAt( int index, int car ){
+void Solution::overwriteCarAt( int index, int car ){
 	if( index < 0 || index > this->size ){
 		throw runtime_error( "Invalid index to insert car.\n" );
 	}

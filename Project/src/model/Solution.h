@@ -16,10 +16,54 @@ public:
 	Solution( int maxSizeSolution );
 	~Solution();
 
+	/**
+	 * Returns the size of the solutions.
+	 */
 	int getSize();
+
+	/**
+	 * Returns the fitness of the solution.
+	 */
 	int getFitness();
+
+	/**
+	 * Returns the level satisfaction of the solution.
+	 */
 	int getSatisfaction();
 
+	/**
+	 * Add city and car on end of the solution.
+	 */
+	void addEnd( int city, int car );
+
+	/**
+	 * Removes city and car on index of the solution.
+	 */
+	void removeIndex( int index );
+
+	/**
+	 * Add city to the solution index. The car is copied from the previous position.
+	 */
+	void addCityAt( int index, int city );
+
+	/**
+	 * Add city and car on index of the solution.
+	 */
+	void addCityAndCarAt( int index, int city, int car );
+
+	/**
+	 * Overwrite city on index.
+	 */
+	void overwriteCityAt( int index, int city );
+
+	/**
+	 * Overwrite car on index.
+	 */
+	void overwriteCarAt( int index, int car );
+
+	/**
+	 * Create text that represents the solution.
+	 */
 	string toString();
 
 private:
@@ -35,13 +79,6 @@ private:
 
 	void calculeFitness();
 	void calculeSatisfaction();
-
-	void addEnd( int city, int car );
-	void removeIndex( int index );
-	void addCityAt( int index, int city );
-	void addCityAndCarAt( int index, int city, int car );
-	void insertCityAt( int index, int city );
-	void insertCarAt( int index, int car );
 
 };
 

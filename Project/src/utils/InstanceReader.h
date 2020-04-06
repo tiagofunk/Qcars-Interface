@@ -16,12 +16,25 @@ public:
 	InstanceReader(string file );
 	virtual ~InstanceReader();
 
+	/**
+	 * Read and return instance from file.
+	 */
 	Instance readInstance();
 
 private:
+	/**
+	 * File name to be read
+	 */
 	string fileName;
 
+	/**
+	 * Non-Euclidean Instance reading
+	 */
 	Instance readInstanceNotEuclidean();
+
+	/**
+	 * Euclidean Instance reading
+	 */
 	Instance readInstanceEuclidean();
 
 	struct Point{
