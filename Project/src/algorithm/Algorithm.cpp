@@ -2,25 +2,27 @@
 #include "Algorithm.h"
 
 Algorithm::Algorithm(
-		string strategy,
-		int sizePopulation,
-		double elite,
-		int limitIterations,
-		double sizePlasmideo,
-		double cross,
-		string selectionStrategy,
-		string intermediaryStrategy
+		PopulationGenerator * generator,
+		StoppingCriterion * criterio
 	){
-
-	this->strategy = strategy;
-	this->sizePopulation = sizePopulation;
-	this->elite = elite;
-	this->limitIterations = limitIterations;
-	this->sizePlasmideo = sizePlasmideo;
-	this->cross = cross;
-	this->selectionStrategy = selectionStrategy;
-	this->intermediaryStrategy = intermediaryStrategy;
-
+	this->generator = generator;
+	this->criterio = criterio;
 }
 
+Algorithm::~Algorithm(){
+	delete generator;
+	delete criterio;
+}
+
+Solution Algorithm::lets_go(){
+	Solution s;
+
+	population = generator->createPopulation();
+
+	while( criterio->proceed() ){
+
+	}
+
+	return s;
+}
 

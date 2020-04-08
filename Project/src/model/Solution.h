@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "Instance.h"
-#include "../GLOBAL.h"
 
 using namespace std;
 
