@@ -26,6 +26,18 @@ int Instance::getBonusSatisfaction( int index ){
 	return this->bonusSatisfaction[ index ];
 }
 
+double Instance::getMinimalSatisfaction(){
+	return this->minimalRatioSatisfaction * this->getSatisfactionTotal();
+}
+
 int Instance::getSatisfactionTotal(){
 	return satisfactionTotal;
+}
+
+int Instance::getNumberCities(){
+	return this->numbersCities;
+}
+
+int Instance::getNumberCars(){
+	return this->numbersCars;
 }

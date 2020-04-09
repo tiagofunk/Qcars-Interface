@@ -67,6 +67,7 @@ public:
 
 private:
 	bool calculatedFitness;
+	bool calculatedSatisfaction;
 
 	int size;
 	int maxSize;

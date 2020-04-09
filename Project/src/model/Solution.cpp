@@ -1,7 +1,9 @@
 #include "Solution.h"
+#include "../GlobalVariables.h"
 
 Solution::Solution() {
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 	this->size = 0;
 	this->maxSize = 0;
 	this->satisfaction = 0;
@@ -10,6 +12,7 @@ Solution::Solution() {
 
 Solution::Solution( int maxSizeSolution ){
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 	this->size = 0;
 	this->satisfaction = 0;
 	this->fitness = 0;
@@ -23,45 +26,45 @@ Solution::~Solution() {
 }
 
 void Solution::calculeFitness(){
-//	if( !this->calculatedFitness ){
-//		this->fitness = 0;
-//		int previous_car = 0, actual_car = 0;
-//		int rent_city = 0, actual_city = 0;
-//		int weigth = 0, rate = 0;
-//		Car myCar;
-//
-//		rent_city = this->cities[ 0 ];
-//		previous_car = this->cars[ 0 ];
-//		for( int i = 0; i < this->size-1; i++ ){
-//			actual_city = this->cities[ i ];
-//			actual_car = this->cars[ i ];
-//			myCar = GLOBAL.global_instance.getCar( actual_car );
-//
-//			weigth = myCar.getEdgeWeigth( actual_city, this->cities[ i+1 ] );
-//			this->fitness += weigth;
-//			if( previous_car != actual_car ){
-//				myCar = global_instance.getCar( previous_car );
-//				rate = myCar.getReturnRate( rent_city, actual_car );
-//				this->fitness += rate;
-//				previous_car = actual_car;
-//				rent_city = actual_car;
-//			}
-//		}
-//
-//		myCar = global_instance.getCar( previous_car );
-//		rate = myCar.getReturnRate( rent_city, 0 );
-//		this->fitness += rate;
-//		this->calculatedFitness = true;
-//	}
+	if( !this->calculatedFitness ){
+		this->fitness = 0;
+		int previous_car = 0, actual_car = 0;
+		int rent_city = 0, actual_city = 0;
+		int weigth = 0, rate = 0;
+		Car myCar( 0 );
+
+		rent_city = this->cities[ 0 ];
+		previous_car = this->cars[ 0 ];
+		for( int i = 0; i < this->size-1; i++ ){
+			actual_city = this->cities[ i ];
+			actual_car = this->cars[ i ];
+			myCar = GlobalVarables::instance->getCar( actual_car );
+
+			weigth = myCar.getEdgeWeigth( actual_city, this->cities[ i+1 ] );
+			this->fitness += weigth;
+			if( previous_car != actual_car ){
+				myCar = GlobalVarables::instance->getCar( previous_car );
+				rate = myCar.getReturnRate( rent_city, actual_car );
+				this->fitness += rate;
+				previous_car = actual_car;
+				rent_city = actual_car;
+			}
+		}
+
+		myCar = GlobalVarables::instance->getCar( previous_car );
+		rate = myCar.getReturnRate( rent_city, 0 );
+		this->fitness += rate;
+		this->calculatedFitness = true;
+	}
 }
 
 void Solution::calculeSatisfaction(){
-//	this->satisfaction = 0;
-//	for( int i = 0; i < this->size; i++ ){
-//		if( i != this->size-1 || (i == this->size-1 && this->cities[ i ] != 0 ) ){
-//			this->satisfaction += global_instance.getBonusSatisfaction( cities[ i ] );
-//		}
-//	}
+	this->satisfaction = 0;
+	for( int i = 0; i < this->size; i++ ){
+		if( i != this->size-1 || (i == this->size-1 && this->cities[ i ] != 0 ) ){
+			this->satisfaction += GlobalVarables::instance->getBonusSatisfaction( cities[ i ] );
+		}
+	}
 }
 
 void Solution::addEnd( int city, int car ){
@@ -72,6 +75,7 @@ void Solution::addEnd( int city, int car ){
 	this->cars.push_back( car );
 	this->size++;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 }
 
 void Solution::removeIndex( int index ){
@@ -82,6 +86,7 @@ void Solution::removeIndex( int index ){
 	this->cars.erase( this->cars.begin() + index );
 	this->size--;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 }
 
 void Solution::addCityAt( int index, int city ){
@@ -92,6 +97,7 @@ void Solution::addCityAt( int index, int city ){
 	this->cars.insert( this->cars.begin() + index, cars[index] );
 	this->size++;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 }
 
 void Solution::addCityAndCarAt( int index, int city, int car ){
@@ -102,6 +108,7 @@ void Solution::addCityAndCarAt( int index, int city, int car ){
 	this->cars.insert( this->cars.begin() + index, car );
 	this->size++;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 }
 
 void Solution::overwriteCityAt( int index, int city ){
@@ -110,6 +117,7 @@ void Solution::overwriteCityAt( int index, int city ){
 	}
 	this->cities[ index ] = city;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
 }
 
 void Solution::overwriteCarAt( int index, int car ){
@@ -118,6 +126,8 @@ void Solution::overwriteCarAt( int index, int car ){
 	}
 	this->cars[ index ] = car;
 	this->calculatedFitness = false;
+	this->calculatedSatisfaction = false;
+
 }
 
 int Solution::getSize(){
@@ -125,10 +135,18 @@ int Solution::getSize(){
 }
 
 int Solution::getFitness(){
+	if( !this->calculatedFitness ){
+		calculeFitness();
+		this->calculatedFitness = true;
+	}
 	return this->fitness;
 }
 
 int Solution::getSatisfaction(){
+	if( !this->calculatedSatisfaction ){
+		calculeSatisfaction();
+		this->calculatedSatisfaction = true;
+	}
 	return this->satisfaction;
 }
 

@@ -8,12 +8,8 @@
 class Instance {
 public:
 	Instance( int numberCars, int numberCities );
+	Instance( const Instance &e);
 	virtual ~Instance();
-
-	/**
-	 * Value that represents a minimum satisfaction proportion value.
-	 */
-	const double minimalSatisfaction = 0.8;
 
 	/**
 	 * Inserts car on index in list of cars.
@@ -27,12 +23,19 @@ public:
 
 	void setBonusSatisfaction( int index, int value );
 	int getBonusSatisfaction( int index );
-
+	double getMinimalSatisfaction();
 	int getSatisfactionTotal();
+	int getNumberCities();
+	int getNumberCars();
 
 private:
 	int numbersCars;
 	int numbersCities;
+
+	/**
+	 * Value that represents a minimum satisfaction proportion value.
+	 */
+	const double minimalRatioSatisfaction = 0.8;
 
 	std::vector< Car > cars;
 	std::vector< int > bonusSatisfaction;

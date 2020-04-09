@@ -11,7 +11,7 @@ public:
 
 	virtual vector<Solution> createPopulation() = 0;
 
-private:
+protected:
 	int sizePopulation;
 
 };
