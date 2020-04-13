@@ -213,7 +213,7 @@ Instance InstanceReader::readInstanceEuclidean(){
 
 Instance InstanceReader::readInstance(){
 	char type = ' ';
-	for( int i = this->fileName.size()-1; i >= 0; i++ ){
+	for( int i = this->fileName.length()-1; i >= 0; i-- ){
 		if( fileName[ i ] == '.' && fileName[ i-1 ] == 'n' ){
 			type = 'n';
 			break;

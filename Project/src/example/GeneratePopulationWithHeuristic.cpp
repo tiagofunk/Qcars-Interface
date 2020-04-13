@@ -3,29 +3,27 @@
 
 #include "GeneratePopulationWithHeuristic.h"
 
-GeneratePopulationWithHeuristic::GeneratePopulationWithHeuristic( int sizePopulation, Instance * instance )
+GeneratePopulationWithHeuristic::GeneratePopulationWithHeuristic( int sizePopulation )
 	: PopulationGenerator( sizePopulation ){
-	this->instance = instance;
 }
 
 GeneratePopulationWithHeuristic::~GeneratePopulationWithHeuristic(){
-	delete this->instance;
 }
 
 vector<Solution> GeneratePopulationWithHeuristic::createPopulation(){
 	bool firstCity;
 	int pos;
 	int myCar, destinyCity, nextCity;
-	Solution mySolution( this->instance->getNumberCities()+1 );
+	Solution mySolution( GlobalVarables::instance->getNumberCities()+1 );
 	vector< int > carsNotUsed;
 	vector< int > citiesNotVisited;
 	vector< Solution > population( this->sizePopulation );
 
 	for( int i = 0; i < this->sizePopulation; i++ ){
 		firstCity = true;
-		carsNotUsed = initAndShuffle( this->instance->getNumberCars(), false );
-		citiesNotVisited = initAndShuffle( this->instance->getNumberCities(), true );
-		mySolution = Solution( this->instance->getNumberCities()+1 );
+		carsNotUsed = initAndShuffle( GlobalVarables::instance->getNumberCars(), false );
+		citiesNotVisited = initAndShuffle( GlobalVarables::instance->getNumberCities(), true );
+		mySolution = Solution( GlobalVarables::instance->getNumberCities()+1 );
 
 		do{
 			myCar = carsNotUsed[ 0 ];
@@ -47,7 +45,7 @@ vector<Solution> GeneratePopulationWithHeuristic::createPopulation(){
 				mySolution.addEnd( nextCity, myCar );
 			}while( destinyCity != nextCity );
 
-		}while( mySolution.getSatisfaction() < this->instance->getMinimalSatisfaction() );
+		}while( mySolution.getSatisfaction() < GlobalVarables::instance->getMinimalSatisfaction() );
 
 		mySolution.addEnd( 0, myCar );
 
@@ -81,7 +79,7 @@ vector< int > GeneratePopulationWithHeuristic::initAndShuffle( int vectorSize, b
 
 int GeneratePopulationWithHeuristic::selectCityWithHeuristic(int car, int cityInit, vector< int > citiesNotVisited ){
 	int value, min = INT_MAX, pos = 0;
-	Car c = this->instance->getCar( car );
+	Car c = GlobalVarables::instance->getCar( car );
 	for( int i = 0; i < (int) citiesNotVisited.size(); i++ ){
 		value = c.getEdgeWeigth( cityInit, citiesNotVisited[ i ] );
 		if( min > value && value != 0 ){

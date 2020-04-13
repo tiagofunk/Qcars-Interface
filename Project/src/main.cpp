@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
 //		string intermediaryStrategy = arg.getValue( "--intermediaryStrategy" );
 
 		cout << file << endl;
+
 		InstanceReader reader( file );
 		Instance inst = reader.readInstance();
 		GlobalVarables::instance = &inst;
