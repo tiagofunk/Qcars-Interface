@@ -3,7 +3,7 @@
 #ifndef COUNTER_H_
 #define COUNTER_H_
 
-class Counter: StoppingCriterion {
+class Counter: public StoppingCriterion {
 public:
 	Counter( int stop );
 

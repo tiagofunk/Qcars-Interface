@@ -8,6 +8,8 @@ public:
 	PopulationGenerator( int sizePopulation ){
 		this->sizePopulation = sizePopulation;
 	}
+	virtual ~PopulationGenerator(){
+	}
 
 	virtual vector<Solution> createPopulation() = 0;
 

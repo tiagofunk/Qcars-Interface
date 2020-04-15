@@ -10,7 +10,7 @@ GeneratePopulationWithHeuristic::GeneratePopulationWithHeuristic( int sizePopula
 GeneratePopulationWithHeuristic::~GeneratePopulationWithHeuristic(){
 }
 
-vector<Solution> GeneratePopulationWithHeuristic::createPopulation(){
+vector< Solution > GeneratePopulationWithHeuristic::createPopulation(){
 	bool firstCity;
 	int pos;
 	int myCar, destinyCity, nextCity;
@@ -51,6 +51,7 @@ vector<Solution> GeneratePopulationWithHeuristic::createPopulation(){
 
 		population[ i ] = mySolution;
 	}
+
 	return population;
 }
 
@@ -58,26 +59,23 @@ vector< int > GeneratePopulationWithHeuristic::initAndShuffle( int vectorSize, b
 	int aux = 0;
 	int number = 0;
 	vector< int > myVector( hasCities ? vectorSize-1 : vectorSize );
-
-	for( int i = 0; (int) myVector.size(); i++ ){
-		if( hasCities){
+	for( int i = 0; i < (int) myVector.size(); i++ ){
+		if( hasCities ){
 			myVector[ i ] = i+1;
 		}else{
 			myVector[ i ] = i;
 		}
 	}
-	for( int i = 0; (int) myVector.size(); i++ ){
+	for( int i = 0; i < (int) myVector.size(); i++ ){
 		number = rand() % myVector.size();
 		aux = myVector[ i ];
 		myVector[ i ] = myVector[ number ];
 		myVector[ number ] = aux;
 	}
-
-
 	return myVector;
 }
 
-int GeneratePopulationWithHeuristic::selectCityWithHeuristic(int car, int cityInit, vector< int > citiesNotVisited ){
+int GeneratePopulationWithHeuristic::selectCityWithHeuristic( int car, int cityInit, vector< int > citiesNotVisited ){
 	int value, min = INT_MAX, pos = 0;
 	Car c = GlobalVarables::instance->getCar( car );
 	for( int i = 0; i < (int) citiesNotVisited.size(); i++ ){

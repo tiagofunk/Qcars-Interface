@@ -150,6 +150,22 @@ int Solution::getSatisfaction(){
 	return this->satisfaction;
 }
 
+int Solution::getCityAt( int position ){
+	return this->cities[ position ];
+}
+
+int Solution::getCarAt( int position ){
+	return this->cars[ position ];
+}
+
+int Solution::getQtyCity(){
+	return this->cities.size();
+}
+
+int Solution::getQtyCar(){
+	return this->cars.size();
+}
+
 string Solution::toString(){
 	string s = ">";
 	string s2 = "*";

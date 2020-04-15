@@ -1,6 +1,9 @@
 #include "Car.h"
+#include <iostream>
 
-Car::Car(int dimension ) {
+using namespace std;
+
+Car::Car( int dimension ) {
 	this->dimension = dimension;
 	this->edgeWeigth.resize( dimension );
 	this->returnRate.resize( dimension );

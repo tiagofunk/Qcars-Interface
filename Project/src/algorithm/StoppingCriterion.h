@@ -4,6 +4,9 @@
 
 class StoppingCriterion{
 public:
+	virtual ~StoppingCriterion(){
+	}
+
 	virtual bool proceed() = 0;
 };
 

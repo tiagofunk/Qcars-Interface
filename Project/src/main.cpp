@@ -5,18 +5,21 @@
 #include "utils/ArgumentReader.h"
 #include "utils/InstanceReader.h"
 #include "GlobalVariables.h"
+#include "example/GeneratePopulationWithHeuristic.h"
+#include "example/Counter.h"
+#include "example/MultiOperatorsLocalSearch.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	try{
+//	try{
 		ArgumentReader arg( argc, argv );
 		string file = arg.getValue( "--file" );
-//		int sizePopulation = stoi( arg.getValue( "--sizePopulation" ) );
+		int sizePopulation = stoi( arg.getValue( "--sizePopulation" ) );
 //		double sizePlasmideo = stod( arg.getValue( "--sizePlasmideo" ) );
 //		double cross = stod( arg.getValue( "--cross" ) );
 //		double elite = stod( arg.getValue( "--elite" ) );
-//		int limitIterations = stoi( arg.getValue( "--limitIterations" ) );
+		int limitIterations = stoi( arg.getValue( "--limitIterations" ) );
 //		string strategy = arg.getValue( "--strategy" );
 //		string selectionStrategy = arg.getValue( "--selectionStrategy" );
 //		string intermediaryStrategy = arg.getValue( "--intermediaryStrategy" );
@@ -26,13 +29,24 @@ int main(int argc, char *argv[]) {
 		InstanceReader reader( file );
 		Instance inst = reader.readInstance();
 		GlobalVarables::instance = &inst;
-		cout << "foi" << endl;
-		cout << GlobalVarables::instance->getNumberCars()<< endl;
+		cout << "Leu a instância" << endl;
 
-	}catch (exception &e){
-		cerr << e.what() << endl;
-		return 1;
-	}
+		GeneratePopulationWithHeuristic gen( sizePopulation );
+		Counter count( limitIterations );
+		MultiOperatorsLocalSearch mul;
+
+		vector< PopulationOperator * > before;
+		before.push_back( &mul );
+
+		Algorithm alg( &gen, &count );
+		alg.addBeforeLoop( before );
+		alg.lets_go();
+
+		cout << "foi de novo" << endl;
+//	}catch (exception &e){
+//		cerr << e.what() << endl;
+//		return 1;
+//	}
 
 	return 0;
 }

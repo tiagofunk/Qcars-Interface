@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class GeneratePopulationWithHeuristic: PopulationGenerator {
+class GeneratePopulationWithHeuristic: public PopulationGenerator {
 public:
 	GeneratePopulationWithHeuristic( int sizePopulation );
 	~GeneratePopulationWithHeuristic();

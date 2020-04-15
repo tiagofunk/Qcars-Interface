@@ -17,12 +17,19 @@ Algorithm::~Algorithm(){
 Solution Algorithm::lets_go(){
 	Solution s;
 
-	population = generator->createPopulation();
+	this->population = this->generator->createPopulation();
 
-	while( criterio->proceed() ){
+	for( PopulationOperator * op: this->operators ){
+		this->population = op->operate( this->population );
+	}
+
+	while( this->criterio->proceed() ){
 
 	}
 
 	return s;
 }
 
+void Algorithm::addBeforeLoop( vector< PopulationOperator * > operators ){
+	this->operators = operators;
+}

@@ -60,6 +60,14 @@ public:
 	 */
 	void overwriteCarAt( int index, int car );
 
+	int getCityAt( int position );
+
+	int getCarAt( int position );
+
+	int getQtyCity();
+
+	int getQtyCar();
+
 	/**
 	 * Create text that represents the solution.
 	 */

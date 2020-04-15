@@ -1,8 +1,11 @@
 #include "ArgumentReader.h"
 
 ArgumentReader::ArgumentReader( int argc, char* argv[] ){
-	if( argc < 4 ){
+	if( argc <= 4 ){
 		throw runtime_error( "The program received less than four arguments" );
+	}
+	if( argc % 2 == 0 ){
+		throw runtime_error( "The program must have an odd number of arguments" );
 	}
 	string *args = new string[ argc-4 ];
 	for( int i = 4; i < argc; i++ ){
@@ -25,5 +28,5 @@ string ArgumentReader::getValue( string name ){
 			return arguments[i].value;
 		}
 	}
-	return "-1";
+	throw runtime_error( "Argument not found: " + name );
 }
