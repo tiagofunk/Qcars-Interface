@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include <vector>
 
-#include "Instance.h"
-
 using namespace std;
 
 class Solution {
@@ -72,6 +70,9 @@ public:
 	 * Create text that represents the solution.
 	 */
 	string toString();
+
+	bool operator>(Solution &sol);
+	bool operator<(Solution &sol);
 
 private:
 	bool calculatedFitness;

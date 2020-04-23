@@ -9,6 +9,7 @@
 #include "PopulationGenerator.h"
 #include "StoppingCriterion.h"
 #include "PopulationOperator.h"
+#include "PopulationSelector.h"
 
 using namespace std;
 
@@ -16,19 +17,19 @@ class Algorithm {
 private:
 
 	vector< Solution > population;
-//	vector< Solution > elitePopulation;
-//	vector< Solution > selection;
-//	vector< Solution > offspring;
+	vector< Solution > elitePopulation;
 
 	PopulationGenerator * generator;
 	StoppingCriterion * criterio;
+	PopulationSelector * elite;
 
-	vector< PopulationOperator * > operators;
+	vector< PopulationOperator * > operatorsBeforeLoop;
 
 public:
 	Algorithm(
 		PopulationGenerator * generator,
-		StoppingCriterion * criterio
+		StoppingCriterion * criterio,
+		PopulationSelector * elite
 	);
 	~Algorithm();
 
