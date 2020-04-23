@@ -6,6 +6,9 @@
 class PopulationGenerator{
 public:
 	PopulationGenerator( int sizePopulation ){
+		if( sizePopulation < 0 ){
+			throw runtime_error("SizePopulation must be bigger than zero.");
+		}
 		this->sizePopulation = sizePopulation;
 	}
 	virtual ~PopulationGenerator(){
