@@ -13,13 +13,13 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-//	try{
+	try{
 		ArgumentReader arg( argc, argv );
 		string file = arg.getValue( "--file" );
 		int sizePopulation = stoi( arg.getValue( "--sizePopulation" ) );
 //		double sizePlasmideo = stod( arg.getValue( "--sizePlasmideo" ) );
 //		double cross = stod( arg.getValue( "--cross" ) );
-//		double elite = stod( arg.getValue( "--elite" ) );
+		double ratio = stod( arg.getValue( "--elite" ) );
 		int limitIterations = stoi( arg.getValue( "--limitIterations" ) );
 //		string strategy = arg.getValue( "--strategy" );
 //		string selectionStrategy = arg.getValue( "--selectionStrategy" );
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 		GeneratePopulationWithHeuristic gen( sizePopulation );
 		Counter count( limitIterations );
 		MultiOperatorsLocalSearch mul;
-		EliteSelector elite( 0.6 );
+		EliteSelector elite( ratio );
 
 		vector< PopulationOperator * > before;
 		before.push_back( &mul );
@@ -45,10 +45,10 @@ int main(int argc, char *argv[]) {
 		alg.lets_go();
 
 		cout << "foi de novo" << endl;
-//	}catch (exception &e){
-//		cerr << e.what() << endl;
-//		return 1;
-//	}
+	}catch (exception &e){
+		cerr << "This is a aplication error: "<< e.what() << endl;
+		return 1;
+	}
 
 	return 0;
 }
