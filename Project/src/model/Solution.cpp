@@ -166,6 +166,14 @@ int Solution::getQtyCar(){
 	return this->cars.size();
 }
 
+bool Solution::operator>(Solution &sol){
+	return this->getFitness() > sol.getFitness();
+}
+
+bool Solution::operator<(Solution &sol){
+	return this->getFitness() < sol.getFitness();
+}
+
 string Solution::toString(){
 	string s = ">";
 	string s2 = "*";

@@ -9,12 +9,15 @@ using namespace std;
 
 class PopulationSelector{
 public:
-	void udpdatePopulation( vector< Solution > population) = 0;
-	virtual vector<Solution> selector() = 0;
+	PopulationSelector( double ratio ){
+		this->ratio = 0.0;
+	}
+	virtual ~PopulationSelector(){}
 
-private:
+	virtual vector<Solution> select( vector< Solution > population ) = 0;
+
+protected:
 	double ratio;
-	vector< Solution > population;
 };
 
 #endif /* POPULATIONSELECTOR_H_ */

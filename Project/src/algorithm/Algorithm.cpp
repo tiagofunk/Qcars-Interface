@@ -3,15 +3,18 @@
 
 Algorithm::Algorithm(
 		PopulationGenerator * generator,
-		StoppingCriterion * criterio
+		StoppingCriterion * criterio,
+		PopulationSelector * elite
 	){
 	this->generator = generator;
 	this->criterio = criterio;
+	this->elite = elite;
 }
 
 Algorithm::~Algorithm(){
 	delete generator;
 	delete criterio;
+	delete elite;
 }
 
 Solution Algorithm::lets_go(){
@@ -19,11 +22,12 @@ Solution Algorithm::lets_go(){
 
 	this->population = this->generator->createPopulation();
 
-	for( PopulationOperator * op: this->operators ){
+	for( PopulationOperator * op: this->operatorsBeforeLoop ){
 		this->population = op->operate( this->population );
 	}
 
 	while( this->criterio->proceed() ){
+		elitePopulation = this->elite->select( this->population );
 
 	}
 
@@ -31,5 +35,5 @@ Solution Algorithm::lets_go(){
 }
 
 void Algorithm::addBeforeLoop( vector< PopulationOperator * > operators ){
-	this->operators = operators;
+	this->operatorsBeforeLoop = operators;
 }

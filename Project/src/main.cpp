@@ -8,6 +8,7 @@
 #include "example/GeneratePopulationWithHeuristic.h"
 #include "example/Counter.h"
 #include "example/MultiOperatorsLocalSearch.h"
+#include "example/EliteSelector.h"
 
 using namespace std;
 
@@ -34,11 +35,12 @@ int main(int argc, char *argv[]) {
 		GeneratePopulationWithHeuristic gen( sizePopulation );
 		Counter count( limitIterations );
 		MultiOperatorsLocalSearch mul;
+		EliteSelector elite( 0.6 );
 
 		vector< PopulationOperator * > before;
 		before.push_back( &mul );
 
-		Algorithm alg( &gen, &count );
+		Algorithm alg( &gen, &count, &elite );
 		alg.addBeforeLoop( before );
 		alg.lets_go();
 
