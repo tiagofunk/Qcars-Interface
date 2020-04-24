@@ -1,14 +1,21 @@
 #include "EliteSelector.h"
 #include "../utils/SortingMethods.h"
 
-EliteSelector::EliteSelector( double ratio ): PopulationSelector( ratio ) {
+EliteSelector::EliteSelector( double ratio, double cross ): PopulationSelector( ratio ) {
+	this->cross = cross;
+	this->interation = 0;
 }
 
 EliteSelector::~EliteSelector() {
 }
 
 vector<Solution> EliteSelector::select( vector< Solution > population ){
-	int numberOfSolutions = population.size() * this->ratio;
+	int numberOfSolutions = 0;
+	if( this->interation % 10 != 0 ){
+		numberOfSolutions = population.size() * this->cross;
+	}else{
+		numberOfSolutions = population.size() * this->ratio;
+	}
 	if( numberOfSolutions % 2 == 1 || numberOfSolutions == 0 ){
 		numberOfSolutions++;
 	}

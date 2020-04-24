@@ -1,9 +1,5 @@
 #include "Counter.h"
 
-#include <iostream>
-
-using namespace std;
-
 Counter::Counter(int stop) {
 	this->stop = stop;
 	this->count = 1;

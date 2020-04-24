@@ -9,8 +9,10 @@ using namespace std;
 
 class PopulationCrossing{
 public:
+	PopulationCrossing(){}
+	virtual ~PopulationCrossing(){}
 
-	virtual vector< Solution > crossing() = 0;
+	virtual vector< Solution > crossing( vector< Solution > population, vector< Solution > elite ) = 0;
 
 private:
 

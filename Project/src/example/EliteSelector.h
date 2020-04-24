@@ -5,10 +5,14 @@
 
 class EliteSelector: public PopulationSelector{
 public:
-	EliteSelector( double ratio );
+	EliteSelector( double ratio, double cross );
 	virtual ~EliteSelector();
 
 	vector<Solution> select( vector< Solution > population );
+
+private:
+	double cross;
+	int interation;
 };
 
 #endif /* ELITESELECTOR_H_ */

@@ -9,6 +9,7 @@
 #include "example/Counter.h"
 #include "example/MultiOperatorsLocalSearch.h"
 #include "example/EliteSelector.h"
+#include "example/Memplas.h"
 
 using namespace std;
 
@@ -17,8 +18,8 @@ int main(int argc, char *argv[]) {
 		ArgumentReader arg( argc, argv );
 		string file = arg.getValue( "--file" );
 		int sizePopulation = stoi( arg.getValue( "--sizePopulation" ) );
-//		double sizePlasmideo = stod( arg.getValue( "--sizePlasmideo" ) );
-//		double cross = stod( arg.getValue( "--cross" ) );
+		double sizePlasmideo = stod( arg.getValue( "--sizePlasmideo" ) );
+		double cross = stod( arg.getValue( "--cross" ) );
 		double ratio = stod( arg.getValue( "--elite" ) );
 		int limitIterations = stoi( arg.getValue( "--limitIterations" ) );
 //		string strategy = arg.getValue( "--strategy" );
@@ -35,12 +36,13 @@ int main(int argc, char *argv[]) {
 		GeneratePopulationWithHeuristic gen( sizePopulation );
 		Counter count( limitIterations );
 		MultiOperatorsLocalSearch mul;
-		EliteSelector elite( ratio );
+		EliteSelector elite( ratio, cross );
+		Memplas mem( sizePlasmideo );
 
 		vector< PopulationOperator * > before;
 		before.push_back( &mul );
 
-		Algorithm alg( &gen, &count, &elite );
+		Algorithm alg( &gen, &count, &elite, &mem );
 		alg.addBeforeLoop( before );
 		alg.lets_go();
 
