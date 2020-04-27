@@ -33,16 +33,16 @@ int main(int argc, char *argv[]) {
 		GlobalVarables::instance = &inst;
 		cout << "Leu a instância" << endl;
 
-		GeneratePopulationWithHeuristic gen( sizePopulation );
-		Counter count( limitIterations );
-		MultiOperatorsLocalSearch mul;
-		EliteSelector elite( ratio, cross );
-		Memplas mem( sizePlasmideo );
+		PopulationGenerator * gen = new GeneratePopulationWithHeuristic( sizePopulation );
+		StoppingCriterion * count = new Counter( limitIterations );
+		PopulationOperator * mul = new MultiOperatorsLocalSearch();
+		PopulationSelector * elite = new EliteSelector( ratio, cross );
+		PopulationCrossing *mem = new Memplas( sizePlasmideo );
 
 		vector< PopulationOperator * > before;
-		before.push_back( &mul );
+		before.push_back( mul );
 
-		Algorithm alg( &gen, &count, &elite, &mem );
+		Algorithm alg( gen, count, elite, mem );
 		alg.addBeforeLoop( before );
 		alg.lets_go();
 

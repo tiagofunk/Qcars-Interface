@@ -32,7 +32,7 @@ Solution Algorithm::lets_go(){
 	while( this->criterio->proceed() ){
 		this->elitePopulation = this->elite->select( this->population );
 
-//		this->offspring = this->crossing->crossing( this->population, this->elitePopulation );
+		this->offspring = this->crossing->crossing( this->population, this->elitePopulation );
 
 	}
 
