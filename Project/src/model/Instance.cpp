@@ -19,6 +19,7 @@ Car Instance::getCar( int index ){
 }
 
 void Instance::setBonusSatisfaction( int index, int value ){
+	this->satisfactionTotal += value;
 	this->bonusSatisfaction[ index ] = value;
 }
 

@@ -5,18 +5,23 @@
 
 class Memplas: public PopulationCrossing {
 public:
-	Memplas( int sizePlasmideo );
+	Memplas( double sizePlasmideo );
 	virtual ~Memplas();
 
 	vector< Solution > crossing( vector< Solution > population, vector< Solution > elite );
 
 private:
-	int sizePlasmideo;
+	double sizePlasmideo;
 	int interation;
 
-	vector< Solution > plasmid( vector< Solution > population, int sizePlasmideo, vector< Solution > elite );
+	vector< Solution > plasmid( vector< Solution > population, vector< Solution > elite );
 	vector< Solution > crossover( vector< Solution > population );
+
 	vector< Solution > restoringOperations( vector< Solution > population );
+	Solution removeErrors( Solution sol );
+	Solution insertCities( Solution sol );
+	Solution insertCars( Solution sol );
+	Solution checkQuota( Solution sol );
 };
 
 #endif /* MEMPLAS_H_ */

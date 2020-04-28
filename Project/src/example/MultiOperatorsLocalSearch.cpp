@@ -26,42 +26,42 @@ vector< Solution > MultiOperatorsLocalSearch::operate( vector< Solution > popula
 
 vector< Solution > MultiOperatorsLocalSearch::removeSaving( vector< Solution > population ){
 	bool go_ahead;
-		int posMin, minCitySatisfaction;
-		Solution son( GlobalVarables::instance->getNumberCities()+1 );
-		Solution dad( GlobalVarables::instance->getNumberCities()+1 );
-		vector< Solution > newPopulation( population.size() );
+	int posMin, minCitySatisfaction;
+	Solution son( GlobalVarables::instance->getNumberCities()+1 );
+	Solution dad( GlobalVarables::instance->getNumberCities()+1 );
+	vector< Solution > newPopulation( population.size() );
 
-		for( int i = 0; i < (int) population.size(); i++ ){
-			go_ahead = true;
-			son = population[i];
-			dad = son;
+	for( int i = 0; i < (int) population.size(); i++ ){
+		go_ahead = true;
+		son = population[i];
+		dad = son;
 
-			while( go_ahead ){
-				posMin = -1;
-				minCitySatisfaction = INT_MAX;
+		while( go_ahead ){
+			posMin = -1;
+			minCitySatisfaction = INT_MAX;
 
-				for( int j = 1; j < son.getQtyCity()-1; j++ ){
-					if( GlobalVarables::instance->getBonusSatisfaction( son.getCityAt( j ) ) < minCitySatisfaction ){
-						minCitySatisfaction = GlobalVarables::instance->getBonusSatisfaction( son.getCityAt( j ) );
-						posMin = j;
-					}
-				}
-
-				if( (son.getSatisfaction() - minCitySatisfaction)
-							< GlobalVarables::instance->getMinimalSatisfaction() ){
-					go_ahead = false;
-				}else {
-					son.removeIndex( posMin );
+			for( int j = 1; j < son.getQtyCity()-1; j++ ){
+				if( GlobalVarables::instance->getBonusSatisfaction( son.getCityAt( j ) ) < minCitySatisfaction ){
+					minCitySatisfaction = GlobalVarables::instance->getBonusSatisfaction( son.getCityAt( j ) );
+					posMin = j;
 				}
 			}
 
-			if( son.getFitness() < dad.getFitness() ){
-				newPopulation[i] = son;
-			}else{
-				newPopulation[i] = dad;
+			if( (son.getSatisfaction() - minCitySatisfaction)
+						< GlobalVarables::instance->getMinimalSatisfaction() ){
+				go_ahead = false;
+			}else {
+				son.removeIndex( posMin );
 			}
 		}
-		return newPopulation;
+
+		if( son.getFitness() < dad.getFitness() ){
+			newPopulation[i] = son;
+		}else{
+			newPopulation[i] = dad;
+		}
+	}
+	return newPopulation;
 }
 
 vector< Solution > MultiOperatorsLocalSearch::invertSolution( vector< Solution > population ){
