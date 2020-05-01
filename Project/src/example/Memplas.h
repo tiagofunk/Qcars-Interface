@@ -2,6 +2,8 @@
 #define MEMPLAS_H_
 
 #include "../algorithm/PopulationCrossing.h"
+#include "../model/Pair.h"
+#include "../utils/SortingMethods.h"
 
 class Memplas: public PopulationCrossing {
 public:
@@ -13,6 +15,9 @@ public:
 private:
 	double sizePlasmideo;
 	int interation;
+
+	vector< Pair > usedCars;
+	vector< Pair > usedCities;
 
 	vector< Solution > plasmid( vector< Solution > population, vector< Solution > elite );
 	vector< Solution > crossover( vector< Solution > population );

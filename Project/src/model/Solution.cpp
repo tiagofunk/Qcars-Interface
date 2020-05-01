@@ -80,7 +80,10 @@ void Solution::addEnd( int city, int car ){
 
 void Solution::removeIndex( int index ){
 	if( index < 0 || index >= this->size ){
-		throw runtime_error( "Index for city/car pair removal in solution is not valid. " );
+		string s = "Index for city/car pair removal in solution is not valid: ";
+		s += "Index: " + to_string( index ) + ", ";
+		s += "Size: " + to_string( this->size );
+		throw runtime_error( s );
 	}
 	this->cities.erase( this->cities.begin() + index );
 	this->cars.erase( this->cars.begin() + index );
@@ -91,7 +94,7 @@ void Solution::removeIndex( int index ){
 
 void Solution::addCityAt( int index, int city ){
 	if( index < 0 || index >= this->size ){
-		throw runtime_error( "Invalid index to add city.\n" );
+		throw runtime_error( "Invalid index to add city." );
 	}
 	this->cities.insert( this->cities.begin() + index, city );
 	this->cars.insert( this->cars.begin() + index, cars[index] );

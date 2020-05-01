@@ -1,5 +1,7 @@
 #include "Algorithm.h"
 
+#include <iostream>
+
 Algorithm::Algorithm(
 		PopulationGenerator * generator,
 		StoppingCriterion * criterio,
@@ -23,6 +25,12 @@ Solution Algorithm::lets_go(){
 	Solution s;
 
 	this->population = this->generator->createPopulation();
+
+//	std::cout << "createPopulation" << std::endl;
+//	for( Solution s: this->population ){
+//		std::cout << s.toString() << std::endl;
+//	}
+//	std::cout << "**************************************" << std::endl;
 
 	for( PopulationOperator * op: this->operatorsBeforeLoop ){
 		this->population = op->operate( this->population );

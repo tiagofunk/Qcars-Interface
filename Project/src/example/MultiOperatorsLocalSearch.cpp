@@ -75,9 +75,9 @@ vector< Solution > MultiOperatorsLocalSearch::invertSolution( vector< Solution >
 
 		for( int j = dad.getSize()-1; j >= 0; j-- ){
 			if( dad.getCarAt( j ) != dad.getCarAt( j-1 ) && j != 0 ){
-				son.addEnd( dad.getCarAt( j ), dad.getCarAt( j-1 ) );
+				son.addEnd( dad.getCityAt( j ), dad.getCarAt( j-1 ) );
 			}else{
-				son.addEnd( dad.getCarAt( j ), dad.getCarAt( j ) );
+				son.addEnd( dad.getCityAt( j ), dad.getCarAt( j ) );
 			}
 		}
 
