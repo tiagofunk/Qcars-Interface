@@ -6,12 +6,14 @@ Algorithm::Algorithm(
 		PopulationGenerator * generator,
 		StoppingCriterion * criterio,
 		PopulationSelector * elite,
-		PopulationCrossing * crossing
+		PopulationCrossing * crossing,
+		PopulationMutation * mult
 	){
 	this->generator = generator;
 	this->criterio = criterio;
 	this->elite = elite;
 	this->crossing = crossing;
+	this->mult = mult;
 }
 
 Algorithm::~Algorithm(){
@@ -40,6 +42,8 @@ Solution Algorithm::lets_go(){
 		this->elitePopulation = this->elite->select( this->population );
 
 		this->offspring = this->crossing->crossing( this->population, this->elitePopulation );
+
+		this->offspring = this->mult->apply( this->offspring );
 
 	}
 

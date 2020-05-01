@@ -10,6 +10,7 @@
 #include "example/MultiOperatorsLocalSearch.h"
 #include "example/EliteSelector.h"
 #include "example/Memplas.h"
+#include "example/EmptyMutation.h"
 
 using namespace std;
 
@@ -33,16 +34,17 @@ int main(int argc, char *argv[]) {
 		GlobalVarables::instance = &inst;
 		cout << "Leu a instância" << endl;
 
-		PopulationGenerator * gen = new GeneratePopulationWithHeuristic( sizePopulation );
-		StoppingCriterion * count = new Counter( limitIterations );
-		PopulationOperator * mul = new MultiOperatorsLocalSearch();
-		PopulationSelector * elite = new EliteSelector( ratio, cross );
-		PopulationCrossing *mem = new Memplas( sizePlasmideo );
+		PopulationGenerator * gen   = new GeneratePopulationWithHeuristic( sizePopulation );
+		StoppingCriterion   * count = new Counter( limitIterations );
+		PopulationOperator  * mul   = new MultiOperatorsLocalSearch();
+		PopulationSelector  * elite = new EliteSelector( ratio, cross );
+		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
+		PopulationMutation  * mun   = new EmptyMutation();
 
 		vector< PopulationOperator * > before;
 		before.push_back( mul );
 
-		Algorithm alg( gen, count, elite, mem );
+		Algorithm alg( gen, count, elite, mem, mun );
 		alg.addBeforeLoop( before );
 		alg.lets_go();
 

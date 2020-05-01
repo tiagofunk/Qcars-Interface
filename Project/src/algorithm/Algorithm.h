@@ -11,6 +11,7 @@
 #include "PopulationOperator.h"
 #include "PopulationSelector.h"
 #include "PopulationCrossing.h"
+#include "PopulationMutation.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ private:
 	StoppingCriterion * criterio;
 	PopulationSelector * elite;
 	PopulationCrossing * crossing;
+	PopulationMutation * mult;
 
 	vector< PopulationOperator * > operatorsBeforeLoop;
 
@@ -33,7 +35,8 @@ public:
 		PopulationGenerator * generator,
 		StoppingCriterion * criterio,
 		PopulationSelector * elite,
-		PopulationCrossing * crossing
+		PopulationCrossing * crossing,
+		PopulationMutation * mult
 	);
 	~Algorithm();
 
