@@ -30,7 +30,7 @@ Solution Algorithm::lets_go(){
 
 //	std::cout << "createPopulation" << std::endl;
 //	for( Solution s: this->population ){
-//		std::cout << s.toString() << std::endl;
+//		std::cout << s.toString() << std::endl << std::endl;
 //	}
 //	std::cout << "**************************************" << std::endl;
 
@@ -45,6 +45,10 @@ Solution Algorithm::lets_go(){
 
 		this->offspring = this->mult->apply( this->offspring );
 
+		for( PopulationOperator * op: this->operatorsOnLoop ){
+			this->offspring = op->operate( this->offspring );
+		}
+
 	}
 
 	return s;
@@ -52,4 +56,8 @@ Solution Algorithm::lets_go(){
 
 void Algorithm::addBeforeLoop( vector< PopulationOperator * > operators ){
 	this->operatorsBeforeLoop = operators;
+}
+
+void Algorithm::addOnLoop( vector< PopulationOperator * > operators ){
+	this->operatorsOnLoop = operators;
 }

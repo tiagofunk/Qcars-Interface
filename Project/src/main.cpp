@@ -41,11 +41,12 @@ int main(int argc, char *argv[]) {
 		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
 		PopulationMutation  * mun   = new EmptyMutation();
 
-		vector< PopulationOperator * > before;
-		before.push_back( mul );
+		vector< PopulationOperator * > operators;
+		operators.push_back( mul );
 
 		Algorithm alg( gen, count, elite, mem, mun );
-		alg.addBeforeLoop( before );
+		alg.addBeforeLoop( operators );
+		alg.addOnLoop( operators );
 		alg.lets_go();
 
 		cout << "foi de novo" << endl;
