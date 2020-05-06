@@ -4,16 +4,18 @@
 
 Algorithm::Algorithm(
 		PopulationGenerator * generator,
-		StoppingCriterion * criterio,
-		PopulationSelector * elite,
-		PopulationCrossing * crossing,
-		PopulationMutation * mult
+		StoppingCriterion   * criterio,
+		PopulationSelector  * elite,
+		PopulationCrossing  * crossing,
+		PopulationMutation  * mult,
+		PopulationUpdater   * upd
 	){
 	this->generator = generator;
 	this->criterio = criterio;
 	this->elite = elite;
 	this->crossing = crossing;
 	this->mult = mult;
+	this->upd = upd;
 }
 
 Algorithm::~Algorithm(){
@@ -27,12 +29,6 @@ Solution Algorithm::lets_go(){
 	Solution s;
 
 	this->population = this->generator->createPopulation();
-
-//	std::cout << "createPopulation" << std::endl;
-//	for( Solution s: this->population ){
-//		std::cout << s.toString() << std::endl << std::endl;
-//	}
-//	std::cout << "**************************************" << std::endl;
 
 	for( PopulationOperator * op: this->operatorsBeforeLoop ){
 		this->population = op->operate( this->population );
@@ -49,7 +45,15 @@ Solution Algorithm::lets_go(){
 			this->offspring = op->operate( this->offspring );
 		}
 
+		this->population = this->upd->update( this->population, this->offspring );
+
 	}
+
+	std::cout << "population" << std::endl;
+	for( Solution s: this->population ){
+		std::cout << s.toString() << std::endl << std::endl;
+	}
+	std::cout << "**************************************" << std::endl;
 
 	return s;
 }

@@ -11,6 +11,7 @@
 #include "example/EliteSelector.h"
 #include "example/Memplas.h"
 #include "example/EmptyMutation.h"
+#include "example/BinaryTournament.h"
 
 using namespace std;
 
@@ -40,11 +41,12 @@ int main(int argc, char *argv[]) {
 		PopulationSelector  * elite = new EliteSelector( ratio, cross );
 		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
 		PopulationMutation  * mun   = new EmptyMutation();
+		PopulationUpdater   * upd   = new BinaryTournament();
 
 		vector< PopulationOperator * > operators;
 		operators.push_back( mul );
 
-		Algorithm alg( gen, count, elite, mem, mun );
+		Algorithm alg( gen, count, elite, mem, mun, upd );
 		alg.addBeforeLoop( operators );
 		alg.addOnLoop( operators );
 		alg.lets_go();
