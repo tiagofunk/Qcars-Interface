@@ -14,6 +14,19 @@
 
 using namespace std;
 
+#ifdef __STRICT_ANSI__
+#undef __STRICT_ANSI__
+#endif
+
+#define type prod
+
+#if type == test
+#include <stdio.h>
+#include "tests/GTestMain.h"
+int main(int argc, char **argv) {
+	return runAllTests( argc, argv );
+}
+#else
 int main(int argc, char *argv[]) {
 	try{
 		ArgumentReader arg( argc, argv );
@@ -41,11 +54,12 @@ int main(int argc, char *argv[]) {
 		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
 		PopulationMutation  * mun   = new EmptyMutation();
 
-		vector< PopulationOperator * > before;
-		before.push_back( mul );
+		vector< PopulationOperator * > operators;
+		operators.push_back( mul );
 
 		Algorithm alg( gen, count, elite, mem, mun );
-		alg.addBeforeLoop( before );
+		alg.addBeforeLoop( operators );
+		alg.addOnLoop( operators );
 		alg.lets_go();
 
 		cout << "foi de novo" << endl;
@@ -56,3 +70,4 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
+#endif

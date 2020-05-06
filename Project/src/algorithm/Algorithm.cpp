@@ -28,23 +28,36 @@ Solution Algorithm::lets_go(){
 
 	this->population = this->generator->createPopulation();
 
-//	std::cout << "createPopulation" << std::endl;
-//	for( Solution s: this->population ){
-//		std::cout << s.toString() << std::endl;
-//	}
-//	std::cout << "**************************************" << std::endl;
-
 	for( PopulationOperator * op: this->operatorsBeforeLoop ){
 		this->population = op->operate( this->population );
 	}
 
 	while( this->criterio->proceed() ){
 		this->elitePopulation = this->elite->select( this->population );
+		std::cout << "select" << std::endl;
+		for( Solution s: this->elitePopulation ){
+			std::cout << s.toString() << std::endl << std::endl;
+		}
+		std::cout << "**************************************" << std::endl;
 
 		this->offspring = this->crossing->crossing( this->population, this->elitePopulation );
+		std::cout << "crossing" << std::endl;
+		for( Solution s: this->offspring ){
+			std::cout << s.toString() << std::endl << std::endl;
+		}
+		std::cout << "**************************************" << std::endl;
+
 
 		this->offspring = this->mult->apply( this->offspring );
+		std::cout << "apply" << std::endl;
+		for( Solution s: this->offspring ){
+			std::cout << s.toString() << std::endl << std::endl;
+		}
+		std::cout << "**************************************" << std::endl;
 
+		for( PopulationOperator * op: this->operatorsBeforeLoop ){
+			this->offspring = op->operate( this->offspring );
+		}
 	}
 
 	return s;
@@ -52,4 +65,8 @@ Solution Algorithm::lets_go(){
 
 void Algorithm::addBeforeLoop( vector< PopulationOperator * > operators ){
 	this->operatorsBeforeLoop = operators;
+}
+
+void Algorithm::addOnLoop( vector< PopulationOperator * > operators ){
+	this->operatorsOnLoop = operators;
 }

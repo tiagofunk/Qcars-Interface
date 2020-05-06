@@ -29,6 +29,7 @@ private:
 	PopulationMutation * mult;
 
 	vector< PopulationOperator * > operatorsBeforeLoop;
+	vector< PopulationOperator * > operatorsOnLoop;
 
 public:
 	Algorithm(
@@ -43,6 +44,7 @@ public:
 	Solution lets_go();
 
 	void addBeforeLoop( vector< PopulationOperator * > operators );
+	void addOnLoop( vector< PopulationOperator * > operators );
 };
 
 #endif /* ALGORITHM_H_ */
