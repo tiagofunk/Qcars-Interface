@@ -227,13 +227,13 @@ Solution Memplas::checkQuota( Solution sol ){
 
 		for( int i = 1; i < newSol.getSize()-1; i++ ){
 			previousCity = newSol.getCityAt( i );
-			newSol.overwriteCarAt( i, selectCity );
+			newSol.overwriteCityAt( i, selectCity );
 			if ( newSol.getSatisfaction() >= GlobalVarables::instance->getMinimalSatisfaction() ){
 				usedCities[indexBiggerCity].plusValue();
 				usedCities[previousCity].minusValue();
 				break;
 			}
-			newSol.overwriteCarAt( i, previousCity );
+			newSol.overwriteCityAt( i, previousCity );
 		}
 	}
 	while ( newSol.getSatisfaction() < GlobalVarables::instance->getMinimalSatisfaction() ){
