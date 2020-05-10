@@ -4,6 +4,14 @@
 
 #include <bits/stdc++.h>
 
+void printPairs( vector< Pair > values ){
+	for( int i = 0; i < (int) values.size(); i++ ){
+		std::cout << values[i].getKey()
+				<< ":" << values[i].getValue() << ", ";
+	}
+	std::cout << std::endl;
+}
+
 Memplas::Memplas( double sizePlasmideo ) {
 	if( sizePlasmideo < 0 ){
 		throw runtime_error("SizePlasmideo must be bigger than zero.");
@@ -124,10 +132,10 @@ Solution Memplas::removeErrors( Solution sol ){
 	Solution newSol = sol;
 
 	for( int i = 0; i < numberCities; i++ ){
-		usedCities.push_back( Pair( i, -1 ) );
+		usedCities.push_back( Pair( i, 0 ) );
 	}
 	for( int i = 0; i < numberCars; i++ ){
-		usedCars.push_back( Pair( i, -1 ) );
+		usedCars.push_back( Pair( i, 0 ) );
 	}
 
 	for( int i = 0; i < sol.getSize(); i++ ){
@@ -149,25 +157,14 @@ Solution Memplas::removeErrors( Solution sol ){
 		}
 		lastCar = actualCar;
 	}
+
 	return newSol;
 }
 
-//void printPairs( vector< Pair > values ){
-//	for( int i = 0; i < (int) values.size(); i++ ){
-//		std::cout <<
-//			values[i].getKey() <<
-//			"-" <<
-//			values[i].getValue() << ", ";
-//	}
-//	std::cout << std::endl;
-//}
-
 Solution Memplas::insertCities( Solution sol ){
 	int lastPosition = -1, aux = 0, randomNumber = 0;
-	Pair pair(-1,-1);
 	Solution newSol = sol;
-	SortingMethods<Pair> sort;
-
+	SortingMethods< Pair > sort;
 	usedCities = sort.sort( usedCities );
 
 	for( int i = 0; i < GlobalVarables::instance->getNumberCities(); i++ ){
@@ -178,7 +175,7 @@ Solution Memplas::insertCities( Solution sol ){
 	}
 	for( int i = 0; i < lastPosition; i++ ){
 		randomNumber = rand() % lastPosition;
-		pair = usedCities[ i ];
+		Pair pair = usedCities[ i ];
 		usedCities[ i ] = usedCities[ randomNumber ];
 		usedCities[ randomNumber ] = pair;
 	}

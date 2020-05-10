@@ -107,7 +107,7 @@ void Validate::checkPopulation( vector< Solution > population ){
 			this->isOk( population[ i ] );
 			this->verifyQuota( population[i] );
 		} catch (exception &e) {
-			cout << "**********Error**********" << i <<
+			cout << "**********Error**********" << endl << i << endl <<
 					e.what() <<	population[i].toString() << endl;
 			exit( 1 );
 		}
