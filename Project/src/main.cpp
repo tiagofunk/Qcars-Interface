@@ -12,6 +12,7 @@
 #include "example/Memplas.h"
 #include "example/EmptyMutation.h"
 #include "example/BinaryTournament.h"
+#include "example/PathRelinking.h"
 
 using namespace std;
 
@@ -24,9 +25,9 @@ int main(int argc, char *argv[]) {
 		double cross = stod( arg.getValue( "--cross" ) );
 		double ratio = stod( arg.getValue( "--elite" ) );
 		int limitIterations = stoi( arg.getValue( "--limitIterations" ) );
-//		string strategy = arg.getValue( "--strategy" );
-//		string selectionStrategy = arg.getValue( "--selectionStrategy" );
-//		string intermediaryStrategy = arg.getValue( "--intermediaryStrategy" );
+		string strategy = arg.getValue( "--strategy" );
+		string selectionStrategy = arg.getValue( "--selectionStrategy" );
+		string intermediaryStrategy = arg.getValue( "--intermediaryStrategy" );
 
 		cout << file << endl;
 
@@ -42,13 +43,18 @@ int main(int argc, char *argv[]) {
 		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
 		PopulationMutation  * mun   = new EmptyMutation();
 		PopulationUpdater   * upd   = new BinaryTournament();
+		PopulationOperator  * path  = new PathRelinking( selectionStrategy, intermediaryStrategy );
 
 		vector< PopulationOperator * > operators;
 		operators.push_back( mul );
 
 		Algorithm alg( gen, count, elite, mem, mun, upd );
+
 		alg.addBeforeLoop( operators );
+
+		operators.push_back( path );
 		alg.addOnLoop( operators );
+
 		alg.lets_go();
 
 		cout << "foi de novo" << endl;
