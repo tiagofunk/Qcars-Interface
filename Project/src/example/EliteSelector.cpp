@@ -1,7 +1,8 @@
 #include "EliteSelector.h"
 #include "../utils/SortingMethods.h"
 
-EliteSelector::EliteSelector( double ratio, double cross ): PopulationSelector( ratio ) {
+EliteSelector::EliteSelector( double ratio, double cross ){
+	this->ratio = ratio;
 	this->cross = cross;
 	this->interation = 0;
 }

@@ -11,6 +11,7 @@ public:
 	vector<Solution> select( vector< Solution > population );
 
 private:
+	double ratio;
 	double cross;
 	int interation;
 };
