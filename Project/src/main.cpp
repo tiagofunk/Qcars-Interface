@@ -13,6 +13,7 @@
 #include "example/EmptyMutation.h"
 #include "example/BinaryTournament.h"
 #include "example/PathRelinking.h"
+#include "example/SelectBetter.h"
 
 using namespace std;
 
@@ -36,26 +37,30 @@ int main(int argc, char *argv[]) {
 		GlobalVarables::instance = &inst;
 		cout << "Leu a instância" << endl;
 
-		PopulationGenerator * gen   = new GeneratePopulationWithHeuristic( sizePopulation );
-		StoppingCriterion   * count = new Counter( limitIterations );
-		PopulationOperator  * mul   = new MultiOperatorsLocalSearch();
-		PopulationSelector  * elite = new EliteSelector( ratio, cross );
-		PopulationCrossing  * mem   = new Memplas( sizePlasmideo );
-		PopulationMutation  * mun   = new EmptyMutation();
-		PopulationUpdater   * upd   = new BinaryTournament();
-		PopulationOperator  * path  = new PathRelinking( selectionStrategy, intermediaryStrategy );
+		PopulationGenerator * gen    = new GeneratePopulationWithHeuristic( sizePopulation );
+		StoppingCriterion   * count  = new Counter( limitIterations );
+		PopulationOperator  * mul    = new MultiOperatorsLocalSearch();
+		PopulationSelector  * elite  = new EliteSelector( ratio, cross );
+		PopulationCrossing  * mem    = new Memplas( sizePlasmideo );
+		PopulationMutation  * mun    = new EmptyMutation();
+		PopulationUpdater   * upd    = new BinaryTournament();
+		PopulationOperator  * path   = new PathRelinking( selectionStrategy, intermediaryStrategy );
+		PopulationSelector  * better = new SelectBetter();
 
 		vector< PopulationOperator * > operators;
 		operators.push_back( mul );
 
-		Algorithm alg( gen, count, elite, mem, mun, upd );
+		Algorithm alg( gen, count, elite, mem, mun, upd, better );
 
 		alg.addBeforeLoop( operators );
 
-		operators.push_back( path );
+//		operators.push_back( path );
 		alg.addOnLoop( operators );
 
-		alg.lets_go();
+		Solution s = alg.lets_go();
+		cout << s.toString() << endl;
+		cout << s.getFitness() << endl;
+		cout << s.getSatisfaction() << endl;
 
 		cout << "foi de novo" << endl;
 	}catch (exception &e){

@@ -27,8 +27,9 @@ private:
 	StoppingCriterion   * criterio;
 	PopulationSelector  * elite;
 	PopulationCrossing  * crossing;
-	PopulationMutation  * mult;
-	PopulationUpdater   * upd;
+	PopulationMutation  * multation;
+	PopulationUpdater   * updater;
+	PopulationSelector  * selBetter;
 
 	vector< PopulationOperator * > operatorsBeforeLoop;
 	vector< PopulationOperator * > operatorsOnLoop;
@@ -39,8 +40,9 @@ public:
 		StoppingCriterion   * criterio,
 		PopulationSelector  * elite,
 		PopulationCrossing  * crossing,
-		PopulationMutation  * mult,
-		PopulationUpdater   * upd
+		PopulationMutation  * multation,
+		PopulationUpdater   * updater,
+		PopulationSelector  * selBetter
 	);
 	~Algorithm();
 
