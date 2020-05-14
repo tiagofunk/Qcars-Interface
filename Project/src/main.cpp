@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 #include "algorithm/Algorithm.h"
 #include "utils/ArgumentReader.h"
@@ -30,12 +32,12 @@ int main(int argc, char *argv[]) {
 		string selectionStrategy = arg.getValue( "--selectionStrategy" );
 		string intermediaryStrategy = arg.getValue( "--intermediaryStrategy" );
 
-		cout << file << endl;
+		srand( time( 0 ) );
 
 		InstanceReader reader( file );
 		Instance inst = reader.readInstance();
 		GlobalVarables::instance = &inst;
-		cout << "Leu a instância" << endl;
+//		cout << "Leu a instância" << endl;
 
 		PopulationGenerator * gen    = new GeneratePopulationWithHeuristic( sizePopulation );
 		StoppingCriterion   * count  = new Counter( limitIterations );
@@ -58,11 +60,11 @@ int main(int argc, char *argv[]) {
 		alg.addOnLoop( operators );
 
 		Solution s = alg.lets_go();
-		cout << s.toString() << endl;
-		cout << s.getFitness() << endl;
-		cout << s.getSatisfaction() << endl;
+//		cout << s.toString() << endl;
+		cout << s.getFitness();
+//		cout << s.getSatisfaction() << endl;
 
-		cout << "foi de novo" << endl;
+//		cout << "foi de novo" << endl;
 	}catch (exception &e){
 		cerr << "This is a aplication error: "<< e.what() << endl;
 		return 1;

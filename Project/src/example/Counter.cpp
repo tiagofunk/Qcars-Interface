@@ -9,6 +9,6 @@ Counter::Counter(int stop) {
 
 bool Counter::proceed(){
 	this->count++;
-	std::cout << this->count << std::endl;
+//	std::cout << this->count << std::endl;
 	return this->stop != this->count;
 }
