@@ -2,9 +2,13 @@
 #define CAR_H_
 
 #include <vector>
+#include <iostream>
+
+using namespace std;
 
 class Car {
 public:
+	Car(){this->dimension=0;};
 	Car( int dimension );
 	virtual ~Car();
 
@@ -27,6 +31,8 @@ public:
 	 * Returns return rate on position (x,y).
 	 */
 	int getReturnRate( int x, int y );
+
+	void toString();
 
 private:
 	int dimension;

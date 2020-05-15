@@ -61,6 +61,7 @@ Instance InstanceReader::readInstanceNotEuclidean(){
 				actualCar.setReturnRate( i, j, stoi( aux ) );
 			}
 		}
+		instance.setCar( c, actualCar );
 	}
 
 	file >> aux;

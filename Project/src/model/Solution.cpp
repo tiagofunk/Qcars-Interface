@@ -44,10 +44,10 @@ void Solution::calculeFitness(){
 			this->fitness += weigth;
 			if( previous_car != actual_car ){
 				myCar = GlobalVarables::instance->getCar( previous_car );
-				rate = myCar.getReturnRate( rent_city, actual_car );
+				rate = myCar.getReturnRate( rent_city, actual_city );
 				this->fitness += rate;
 				previous_car = actual_car;
-				rent_city = actual_car;
+				rent_city = actual_city;
 			}
 		}
 

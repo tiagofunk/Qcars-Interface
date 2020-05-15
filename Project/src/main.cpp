@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "model/Solution.h"
 #include "algorithm/Algorithm.h"
 #include "utils/ArgumentReader.h"
 #include "utils/InstanceReader.h"
@@ -37,7 +38,6 @@ int main(int argc, char *argv[]) {
 		InstanceReader reader( file );
 		Instance inst = reader.readInstance();
 		GlobalVarables::instance = &inst;
-//		cout << "Leu a instância" << endl;
 
 		PopulationGenerator * gen    = new GeneratePopulationWithHeuristic( sizePopulation );
 		StoppingCriterion   * count  = new Counter( limitIterations );
@@ -60,11 +60,8 @@ int main(int argc, char *argv[]) {
 		alg.addOnLoop( operators );
 
 		Solution s = alg.lets_go();
-//		cout << s.toString() << endl;
 		cout << s.getFitness();
-//		cout << s.getSatisfaction() << endl;
 
-//		cout << "foi de novo" << endl;
 	}catch (exception &e){
 		cerr << "This is a aplication error: "<< e.what() << endl;
 		return 1;

@@ -31,3 +31,20 @@ int Car::getEdgeWeigth( int x, int y ){
 int Car::getReturnRate( int x, int y ){
 	return this->returnRate[ x ][ y ];
 }
+
+void Car::toString(){
+	for( int b = 0; b < this->dimension; b++ ){
+		for( int c = 0; c < this->dimension; c++ ){
+			cout << this->getEdgeWeigth( b, c ) << "\t";
+		}
+		cout << endl;
+	}
+	cout << "<<<<<<<<<<<<<<<<" << endl;
+	for( int b = 0; b < this->dimension; b++ ){
+		for( int c = 0; c < this->dimension; c++ ){
+			cout << this->getReturnRate( b, c ) << "\t";
+		}
+		cout << endl;
+	}
+	cout << "<<<<<<<<<<<<<<<<" << endl;
+}
