@@ -7,6 +7,7 @@
 #include "algorithm/Algorithm.h"
 #include "utils/ArgumentReader.h"
 #include "utils/InstanceReader.h"
+#include "utils/FileWriter.h"
 #include "GlobalVariables.h"
 #include "example/GeneratePopulationWithHeuristic.h"
 #include "example/Counter.h"
@@ -60,7 +61,8 @@ int main(int argc, char *argv[]) {
 		alg.addOnLoop( operators );
 
 		Solution s = alg.lets_go();
-		cout << s.getFitness();
+		FileWriter fw = FileWriter("logs.txt");
+		fw.write( file + ";" + to_string( s.getFitness() ) + "\n" );
 
 	}catch (exception &e){
 		cerr << "This is a aplication error: "<< e.what() << endl;
