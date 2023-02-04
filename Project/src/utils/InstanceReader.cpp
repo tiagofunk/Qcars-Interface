@@ -10,7 +10,7 @@ InstanceReader::~InstanceReader() {
 }
 
 Instance InstanceReader::readInstanceNotEuclidean(){
-	int cities, cars;
+	int cities = 0, cars = 0;
 	string aux;
 	ifstream file( this->fileName.c_str(), ios::in );
 
@@ -122,7 +122,7 @@ Instance InstanceReader::readInstanceEuclidean(){
 		satisfaction[ i ] = stod( aux );
 	}
 
-	// Iniciando a matriz de distâncias
+	// Iniciando a matriz de distï¿½ncias
 	std::vector< std::vector< double > > dist;
 
 	for( int i = 0; i < cities; i++ ){
