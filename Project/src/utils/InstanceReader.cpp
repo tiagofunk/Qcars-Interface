@@ -156,7 +156,6 @@ Instance InstanceReader::readInstanceEuclidean(){
 					cost[i][j] = 0;
 				} else {
 					cost[i][j] = ((vec[i]*2+vec[j]*3)/3)+(dist[i][j]);
-//					cost[i][j] = ((vector[i]*2+vector[j]*3)/3);
 					cost[j][i] = cost[i][j];
 				}
 			}
@@ -191,7 +190,6 @@ Instance InstanceReader::readInstanceEuclidean(){
 					for (int k=0; k < cities; k++){
 						rate[i][j] = ((vec[i]*3+vec[j])*4)/2;
 					}
-//					rate[i][j] = ((vector[i]*3+vector[j]*4)/2);
 				}
 			}
 		}
@@ -219,15 +217,15 @@ Instance InstanceReader::readInstance(){
 			type = 'n';
 			break;
 		}
-		if( fileName[ i ] == '.' && fileName[ i-1 ] == 's' ){
-			type = 's';
+		if( fileName[ i ] == '.' && fileName[ i-1 ] == 'e' ){
+			type = 'e';
 			break;
 		}
 	}
 
 	switch( type ){
 		case 'n': return readInstanceNotEuclidean();
-		case 's': return readInstanceEuclidean();
+		case 'e': return readInstanceEuclidean();
 		default: throw runtime_error( "Type of instance not found" );
 	}
 }
