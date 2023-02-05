@@ -10,7 +10,7 @@ InstanceReader::~InstanceReader() {
 }
 
 Instance InstanceReader::readInstanceNotEuclidean(){
-	int cities, cars;
+	int cities = 0, cars = 0;
 	string aux;
 	ifstream file( this->fileName.c_str(), ios::in );
 
@@ -80,7 +80,6 @@ Instance InstanceReader::readInstanceNotEuclidean(){
 
 Instance InstanceReader::readInstanceEuclidean(){
 	int cities = -1, cars = -1;
-	std::vector< int > vec;
 	string aux;
 	ifstream fileReader( this->fileName.c_str(), ios::in );
 
@@ -122,15 +121,14 @@ Instance InstanceReader::readInstanceEuclidean(){
 		satisfaction[ i ] = stod( aux );
 	}
 
-	// Iniciando a matriz de distâncias
-	std::vector< std::vector< double > > dist;
+	double dist[cities][cities];
 
 	for( int i = 0; i < cities; i++ ){
 		for( int j = i; j < cities; j++ ){
 			if( i == j ){
 				dist[i][j] = 0;
 			}else{
-				dist[i][j] = (int) (sqrt(pow((points[i].x-points[j].x), 2) + pow((points[i].y-points[j].y), 2)));
+				dist[i][j] = (sqrt(pow((points[i].x-points[j].x), 2) + pow((points[i].y-points[j].y), 2)));
 				dist[j][i] = dist[i][j];
 			}
 		}
@@ -142,8 +140,9 @@ Instance InstanceReader::readInstanceEuclidean(){
 	for( int c = 0; c < cars; c++ ){
 		// numbers of car
 		fileReader >> aux;
-		std::vector< std::vector< double > > cost;
+		double cost[cities][cities];
 		Car newCar( cities );
+		int vec[cities];
 
 		for( int i = 0; i < cities; i++ ){
 			fileReader >> aux;
@@ -156,13 +155,12 @@ Instance InstanceReader::readInstanceEuclidean(){
 					cost[i][j] = 0;
 				} else {
 					cost[i][j] = ((vec[i]*2+vec[j]*3)/3)+(dist[i][j]);
-//					cost[i][j] = ((vector[i]*2+vector[j]*3)/3);
 					cost[j][i] = cost[i][j];
 				}
 			}
 		}
 		for( int i = 0; i < cities; i++ ){
-			for( int j = i; j < cities; j++ ){
+			for( int j = 0; j < cities; j++ ){
 				newCar.setEgdeWeigth( i, j, cost[ i ][ j ] );
 			}
 		}
@@ -175,8 +173,9 @@ Instance InstanceReader::readInstanceEuclidean(){
 	for( int c = 0; c < cars; c++ ){
 		// numbers of car
 		fileReader >> aux;
-		std::vector< std::vector< double > > rate;
+		double rate[cities][cities];
 		Car actualCar = instance.getCar( c );
+		int vec[cities];
 
 		for( int i = 0; i < cities; i++ ){
 			fileReader >> aux;
@@ -191,7 +190,6 @@ Instance InstanceReader::readInstanceEuclidean(){
 					for (int k=0; k < cities; k++){
 						rate[i][j] = ((vec[i]*3+vec[j])*4)/2;
 					}
-//					rate[i][j] = ((vector[i]*3+vector[j]*4)/2);
 				}
 			}
 		}
@@ -201,6 +199,12 @@ Instance InstanceReader::readInstanceEuclidean(){
 				actualCar.setReturnRate( i, j, rate[ i ][ j ] );
 			}
 		}
+
+		instance.setCar(c, actualCar);
+	}
+
+	for( int c = 0; c < cities; c++ ){
+		instance.setBonusSatisfaction( c, 1.0 );
 	}
 
 	fileReader >> aux;
@@ -219,15 +223,15 @@ Instance InstanceReader::readInstance(){
 			type = 'n';
 			break;
 		}
-		if( fileName[ i ] == '.' && fileName[ i-1 ] == 's' ){
-			type = 's';
+		if( fileName[ i ] == '.' && fileName[ i-1 ] == 'e' ){
+			type = 'e';
 			break;
 		}
 	}
 
 	switch( type ){
 		case 'n': return readInstanceNotEuclidean();
-		case 's': return readInstanceEuclidean();
+		case 'e': return readInstanceEuclidean();
 		default: throw runtime_error( "Type of instance not found" );
 	}
 }

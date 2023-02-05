@@ -49,13 +49,6 @@ Solution Algorithm::lets_go(){
 			this->offspring = op->operate( this->offspring );
 		}
 
-//		for( Solution s: this->offspring ){
-//			std::cout << s.toString() << std::endl << std::endl;
-//		}
-//		std::cout << "**************************************" << std::endl;
-//
-//		break;
-
 		this->population = this->updater->update( this->population, this->offspring );
 
 	}
