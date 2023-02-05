@@ -61,8 +61,7 @@ int main(int argc, char *argv[]) {
 		alg.addOnLoop( operators );
 
 		Solution s = alg.lets_go();
-		FileWriter fw = FileWriter("logs.txt");
-		fw.write( file + ";" + to_string( s.getFitness() ) + "\n" );
+		cout << file << ";" << s.getFitness() << endl;
 
 	}catch (exception &e){
 		cerr << "This is a aplication error: "<< e.what() << endl;

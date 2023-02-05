@@ -32,19 +32,21 @@ int Car::getReturnRate( int x, int y ){
 	return this->returnRate[ x ][ y ];
 }
 
-void Car::toString(){
+string Car::toString(){
+	string s = "";
 	for( int b = 0; b < this->dimension; b++ ){
 		for( int c = 0; c < this->dimension; c++ ){
-			cout << this->getEdgeWeigth( b, c ) << "\t";
+			s += to_string(this->getEdgeWeigth( b, c )) + "\t";
 		}
-		cout << endl;
+		s += "\n";
 	}
-	cout << "<<<<<<<<<<<<<<<<" << endl;
+	s += "<<<<<<<<<<<<<<<<\n";
 	for( int b = 0; b < this->dimension; b++ ){
 		for( int c = 0; c < this->dimension; c++ ){
-			cout << this->getReturnRate( b, c ) << "\t";
+			s += to_string(this->getReturnRate( b, c )) + "\t";
 		}
-		cout << endl;
+		s += "\n";
 	}
-	cout << "<<<<<<<<<<<<<<<<" << endl;
+	s += "<<<<<<<<<<<<<<<<\n";
+	return s;
 }

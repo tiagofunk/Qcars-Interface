@@ -80,7 +80,6 @@ Instance InstanceReader::readInstanceNotEuclidean(){
 
 Instance InstanceReader::readInstanceEuclidean(){
 	int cities = -1, cars = -1;
-	std::vector< int > vec;
 	string aux;
 	ifstream fileReader( this->fileName.c_str(), ios::in );
 
@@ -122,15 +121,14 @@ Instance InstanceReader::readInstanceEuclidean(){
 		satisfaction[ i ] = stod( aux );
 	}
 
-	// Iniciando a matriz de dist�ncias
-	std::vector< std::vector< double > > dist;
+	double dist[cities][cities];
 
 	for( int i = 0; i < cities; i++ ){
 		for( int j = i; j < cities; j++ ){
 			if( i == j ){
 				dist[i][j] = 0;
 			}else{
-				dist[i][j] = (int) (sqrt(pow((points[i].x-points[j].x), 2) + pow((points[i].y-points[j].y), 2)));
+				dist[i][j] = (sqrt(pow((points[i].x-points[j].x), 2) + pow((points[i].y-points[j].y), 2)));
 				dist[j][i] = dist[i][j];
 			}
 		}
@@ -142,8 +140,9 @@ Instance InstanceReader::readInstanceEuclidean(){
 	for( int c = 0; c < cars; c++ ){
 		// numbers of car
 		fileReader >> aux;
-		std::vector< std::vector< double > > cost;
+		double cost[cities][cities];
 		Car newCar( cities );
+		int vec[cities];
 
 		for( int i = 0; i < cities; i++ ){
 			fileReader >> aux;
@@ -161,7 +160,7 @@ Instance InstanceReader::readInstanceEuclidean(){
 			}
 		}
 		for( int i = 0; i < cities; i++ ){
-			for( int j = i; j < cities; j++ ){
+			for( int j = 0; j < cities; j++ ){
 				newCar.setEgdeWeigth( i, j, cost[ i ][ j ] );
 			}
 		}
@@ -174,8 +173,9 @@ Instance InstanceReader::readInstanceEuclidean(){
 	for( int c = 0; c < cars; c++ ){
 		// numbers of car
 		fileReader >> aux;
-		std::vector< std::vector< double > > rate;
+		double rate[cities][cities];
 		Car actualCar = instance.getCar( c );
+		int vec[cities];
 
 		for( int i = 0; i < cities; i++ ){
 			fileReader >> aux;
@@ -199,6 +199,12 @@ Instance InstanceReader::readInstanceEuclidean(){
 				actualCar.setReturnRate( i, j, rate[ i ][ j ] );
 			}
 		}
+
+		instance.setCar(c, actualCar);
+	}
+
+	for( int c = 0; c < cities; c++ ){
+		instance.setBonusSatisfaction( c, 1.0 );
 	}
 
 	fileReader >> aux;

@@ -32,7 +32,7 @@ public:
 	 */
 	int getReturnRate( int x, int y );
 
-	void toString();
+	string toString();
 
 private:
 	int dimension;
