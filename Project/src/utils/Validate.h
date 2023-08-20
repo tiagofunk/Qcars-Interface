@@ -9,7 +9,7 @@ public:
 	virtual ~Validate();
 
 	bool isValid( Solution mySolution );
-	void isOk( Solution mySolution ) throw (runtime_error);
+	void isOk( Solution mySolution );
 	void checkPopulation( vector< Solution > population );
 
 private:

@@ -50,15 +50,19 @@ int main(int argc, char *argv[]) {
 		PopulationOperator  * path   = new PathRelinking( selectionStrategy, intermediaryStrategy );
 		PopulationSelector  * better = new SelectBetter();
 
-		vector< PopulationOperator * > operators;
-		operators.push_back( mul );
+		vector< PopulationOperator * > operatorsBeforeLoop;
+		operatorsBeforeLoop.push_back( mul );
+
+		vector< PopulationOperator * > operatorsOnLoop;
+		operatorsOnLoop.push_back( mul );
+		operatorsOnLoop.push_back( path );
 
 		Algorithm alg( gen, count, elite, mem, mun, upd, better );
 
-		alg.addBeforeLoop( operators );
+		alg.addBeforeLoop( operatorsBeforeLoop );
 
 //		operators.push_back( path );
-		alg.addOnLoop( operators );
+		alg.addOnLoop( operatorsOnLoop );
 
 		Solution s = alg.lets_go();
 		cout << file << ";" << s.getFitness() << endl;

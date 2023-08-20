@@ -94,7 +94,7 @@ void Validate::checkRepetition( Solution sol, int finalPosition ){
 	}
 }
 
-void Validate::isOk( Solution sol ) throw (runtime_error) {
+void Validate::isOk( Solution sol ) {
 	int finalPosition = sol.getSize();
 	this->checkStartAndEnd( sol, finalPosition );
 	this->checkCitiesAndCars( sol, finalPosition );
